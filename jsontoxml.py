@@ -152,17 +152,18 @@ def main():
     with open('Hangouts.json', encoding="utf8") as f:
         datastore = f.read()
         
-    data=json.loads(datastore)
+    data = json.loads(datastore)
 
     root = ET.Element("smses", count=str(0), backup_set="145bea68-a1f4-4068-a631-06757067e675", backup_date="1555940780184")
         
+    count = 0
     for thread in data['conversations']:
         #Group message check
         if len(thread['conversation']['conversation']['participant_data']) > 2:
             continue
-            count = groupPath(root, thread)
+            count += groupPath(root, thread)
         else:
-            count = singlePath(root, thread)
+            count += singlePath(root, thread)
             
     root.set("count", str(count))
     tree = ET.ElementTree(root)
