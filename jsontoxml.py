@@ -47,7 +47,7 @@ def singlePath(root, thread):
 
 #returns the count of messages
 def groupPath(root, thread):
-    user_ids = group_ids(thread)
+    user_ids = groupIDs(thread)
     
     if user_ids is None:
         return 0
