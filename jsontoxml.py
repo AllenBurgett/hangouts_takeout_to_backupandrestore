@@ -9,6 +9,9 @@ def singlePath(root, thread):
         phone=thread['conversation']['conversation']['participant_data'][0]['phone_number']['e164']
         #name
         name=thread['conversation']['conversation']['participant_data'][0]['fallback_name']
+    #Unknown case where object 0 has no phone number and is the only object in array. Submitted by reddit user.
+    elif len(thread['conversation']['conversation']['participant_data'][1]) < 2:
+        return 0
     #if this fails and it's not a Group message, then it's a hangouts message
     elif 'phone_number' in thread['conversation']['conversation']['participant_data'][1].keys():
         phone=thread['conversation']['conversation']['participant_data'][1]['phone_number']['e164']
