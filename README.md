@@ -14,7 +14,7 @@ I made this for myself and thought I would share it with whomever wandered acros
 3. Download jsontoxml.py
 4. Put jsontoxml.py and Hangouts.json in the same folder 
 5. Open a command window (terminal should work as well, but I've only tested on Windows) and navigate to the folder from step 4.
-6. Type "python jsontoxml.py" and hit enter
+6. Type "python3 jsontoxml.py" and hit enter
 7. If you get no errors, then you should be able to go to back to your folder and see test.xml
 8. Download SMS Backup & Restore https://play.google.com/store/apps/details?id=com.riteshsahu.SMSBackupRestore on the phone you're transferring the messages to.
 9. Get test.xml to your phone (my method was Google Drive)
