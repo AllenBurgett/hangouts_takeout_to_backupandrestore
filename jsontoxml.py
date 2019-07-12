@@ -123,6 +123,9 @@ def getType(msg):
 def getMessage(msg):
 
     #print(data['conversations'][28]['events'][0]['chat_message']['message_content']['segment'][0]['text'])
+    #check that msg contains 'chat_message'
+    if 'chat_message' not in msg:
+        return None
     #check for pictures
     if 'attachment' in msg['chat_message']['message_content']:
         if 'text' in msg['chat_message']['message_content']:
