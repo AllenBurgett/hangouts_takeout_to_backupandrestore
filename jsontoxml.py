@@ -218,10 +218,9 @@ def getMessage(msg):
                     url = re.sub(r'\s+', '', url)
                     text += url + "\n"
                 elif type == "PLUS_AUDIO_V2":
-                    url = attachment["embed_item"]["plus_audio_v2"]["url"]
-                    # strip spaces that for some reason are in there
-                    url = re.sub(r'\s+', '', url)
-                    text += url + "\n"
+                    #These are voicemail transcriptions, and don't seem to be easily turned into a link
+                    #default to info header instead
+                    text += "Voicemail transcript:\n"
                 elif type == "THING_V2":
                     url = attachment['embed_item']['thing_v2']['url']
                     # strip spaces that for some reason are in there
