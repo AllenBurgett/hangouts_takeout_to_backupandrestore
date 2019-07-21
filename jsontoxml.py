@@ -244,7 +244,10 @@ def getMessage(msg):
             elif type == "LINE_BREAK":
                 text += "\n"
             elif type == "LINK":
-                text += segment['text'].replace(" ", "")
+                url = segment['text']
+                # strip spaces that for some reason are in there
+                url = re.sub(r'\s+', '', url)
+                text += url
 
     if not text:
         raise Exception(f"No text found for message {msg}")
