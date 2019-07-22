@@ -3,8 +3,6 @@ Take the hangouts JSON output from Takeout and convert it to an XML that's reada
 
 This will import your SMS 1:1 messages. Group messages support has been added.
 
-Group messages seem to be much more complicated than 1:1 messages (who would have thought it?). Please feel free to use the code in place as a starting point. Otherwise, I might attempt to handle group messages in the future.
-
 **Notes**
 I made this for myself and thought I would share it with whomever wandered across it. I do not guarantee it will work for you, but it has worked for me. **If you are not familiar with coding, I urge you to have someone who is review this (and really anything you pull that's not from a legitimate organization) before you use it. I make no web calls, but you are exposing sensitive information when giving programs like this one access to your private conversations. So, error on the side of caution and have someone you trust review this to ensure your data is safe.**
 
