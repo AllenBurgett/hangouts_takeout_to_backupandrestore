@@ -1,7 +1,7 @@
 # hangouts_takeout_to_backupandrestore
 Take the hangouts JSON output from Takeout and convert it to an XML that's readable by the App Backup and Restore
 
-This will import your SMS 1:1 messages. Group messages and attachments are not currently supported. Also doesn't seem to copy hyperlinks over.
+This will import your SMS 1:1 messages. Group messages support has been added.
 
 Group messages seem to be much more complicated than 1:1 messages (who would have thought it?). Please feel free to use the code in place as a starting point. Otherwise, I might attempt to handle group messages in the future.
 
