@@ -226,8 +226,8 @@ def getMessage(msg):
                     # strip spaces that for some reason are in there
                     url = re.sub(r'\s+', '', url)
 
-                    name = attachment['embed_item']['thing_v2']['name']
-                    text += name + "\n" + url
+                    name = attachment['embed_item']['thing_v2'].get('name')
+                    text += name if name else 'Attachment' + "\n" + url
                 # thing doesn't seem to ever show up, and place_v2 is always matched by a thing_v2
                 elif type in ('THING', 'PLACE_V2'):
                     continue
