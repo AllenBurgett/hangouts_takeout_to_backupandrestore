@@ -17,7 +17,7 @@ I made this for myself and thought I would share it with whomever wandered acros
 7. If you get no errors, then you should be able to go to back to your folder and see test.xml
 8. Download SMS Backup & Restore https://play.google.com/store/apps/details?id=com.riteshsahu.SMSBackupRestore on the phone you're transferring the messages to.
 9. Get test.xml to your phone (my method was Google Drive)
-10. Move test.xml to the SMSBackupRestore folder (I used https://play.google.com/store/apps/details?id=com.asus.filemanage to do this)
+10. Move test.xml to the SMSBackupRestore folder (I used https://play.google.com/store/apps/details?id=com.asus.filemanager to do this)
 11. Launch SMS Backup and Restore and navigate to Restore
 12. Click "Select Another Backup" you should see test.xml. Choose it and continue.
 13. Turn the Phone Calls switch off
