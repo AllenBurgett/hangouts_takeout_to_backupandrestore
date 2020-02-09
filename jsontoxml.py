@@ -15,12 +15,15 @@ def singlePath(root, thread):
     if 'phone_number' in participant_data[0].keys():
         # number
         phone = participant_data[0]['phone_number']['e164']
-        is_valid = participant_data[0]['phone_number']['i18n_data']['is_valid']
-        if not is_valid:
-            # likely a short code, skip
+        if 'i18n_data' in participant_data[0]['phone_number'].keys():
+            is_valid = participant_data[0]['phone_number']['i18n_data']['is_valid']
+            if not is_valid:
+                # likely a short code, skip
+                return 0
+            # name
+            name = participant_data[0]['fallback_name']
+        else:
             return 0
-        # name
-        name = participant_data[0]['fallback_name']
     # Unknown case where object 0 has no phone number and is the only object in array. Submitted by reddit user.
     elif len(thread['conversation']['conversation']['participant_data']) < 2:
         return 0
@@ -28,9 +31,12 @@ def singlePath(root, thread):
     elif 'phone_number' in participant_data[1].keys():
         phone = participant_data[1]['phone_number']['e164']
         name = participant_data[1]['fallback_name']
-        is_valid = participant_data[1]['phone_number']['i18n_data']['is_valid']
-        if not is_valid:
-            # likely a short code, skip
+        if 'i18n_data' in participant_data[1]['phone_number'].keys():
+            is_valid = participant_data[1]['phone_number']['i18n_data']['is_valid']
+            if not is_valid:
+                # likely a short code, skip
+                return 0
+        else:
             return 0
 
     else:
