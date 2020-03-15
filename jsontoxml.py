@@ -1,3 +1,4 @@
+import os, sys
 import json
 from datetime import datetime
 import xml.etree.ElementTree as ET
@@ -279,6 +280,7 @@ def getReadableDate(ts):
 
 
 def main():
+    os.chdir(sys.path[0])
 
     with open('Hangouts.json', encoding="utf8") as f:
         datastore = f.read()
