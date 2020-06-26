@@ -244,7 +244,7 @@ def getMessage(msg):
 
 def getParticipantInfo(participant_data):
 
-    name = participant_data['fallback_name']
+    name = participant_data.get("fallback_name")
 
     if 'phone_number' in participant_data.keys():
         phone = participant_data['phone_number']['e164']
