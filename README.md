@@ -10,11 +10,10 @@ I made this for myself and thought I would share it with whomever wandered acros
 1. Go to takeout.google.com and have them prepare your Hangouts JSON (JSON is the default format option). Follow Google's instructions to retrieve.
 2. Make sure you have Python 3 installed (I'm running 3.7, but I'm probably not running anything very specific to it. Python 2 blows up on the encoding).
 3. Download jsontoxml.py
-4. Put jsontoxml.py and Hangouts.json in the same folder
+4. Put jsontoxml.py and Hangouts.json in the same folder 
 5. Open a command window (terminal should work as well, but I've only tested on Windows) and navigate to the folder from step 4
 6. Type "python3 jsontoxml.py" and hit enter.
 **Note**: _This script requires python 3 to run. If your OS installs python 3 in a different location such as "python" that may work as well. In many cases the nonspecific use of "python" still defaults to python2 which is why python3 is deliberately used here but steps to invoke python3 on your OS may differ._
-_Additionally, you may pass the `-p` argument to the script if you'd like for it to prompt for phone numbers when one can't be found during conversation mapping._
 7. If you get no errors, then you should be able to go to back to your folder and see test.xml
 8. Download SMS Backup & Restore https://play.google.com/store/apps/details?id=com.riteshsahu.SMSBackupRestore on the phone you're transferring the messages to.
 9. Get test.xml to your phone (my method was Google Drive)
