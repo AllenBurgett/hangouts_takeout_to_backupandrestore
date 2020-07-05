@@ -1,9 +1,9 @@
 import os, sys
+import argparse
 import json
 from datetime import datetime
 import xml.etree.ElementTree as ET
 import re
-
 import time
 
 
@@ -13,34 +13,16 @@ def current_milli_time(): return int(round(time.time() * 1000))
 def singlePath(root, thread):
     participant_data = thread['conversation']['conversation']['participant_data']
 
-    if 'phone_number' in participant_data[0].keys():
-        # number
-        phone = participant_data[0]['phone_number']['e164']
-        if 'i18n_data' in participant_data[0]['phone_number'].keys():
-            is_valid = participant_data[0]['phone_number']['i18n_data']['is_valid']
-            if not is_valid:
-                # likely a short code, skip
-                return 0
-            # name
-            name = participant_data[0]['fallback_name']
-        else:
-            return 0
-    # Unknown case where object 0 has no phone number and is the only object in array. Submitted by reddit user.
-    elif len(thread['conversation']['conversation']['participant_data']) < 2:
-        return 0
-    # if this fails and it's not a Group message, then it's a hangouts message (or incoming message?)
-    elif 'phone_number' in participant_data[1].keys():
-        phone = participant_data[1]['phone_number']['e164']
-        name = participant_data[1]['fallback_name']
-        if 'i18n_data' in participant_data[1]['phone_number'].keys():
-            is_valid = participant_data[1]['phone_number']['i18n_data']['is_valid']
-            if not is_valid:
-                # likely a short code, skip
-                return 0
-        else:
+    phone, name = getParticipantInfo(participant_data[0])
+    if None in (phone, name):
+        # Unknown case where object 0 has no phone number and is the only object in array. Submitted by reddit user.
+        if len(thread['conversation']['conversation']['participant_data']) < 2:
             return 0
 
-    else:
+        # if this fails and it's not a Group message, then it's a hangouts message (or incoming message?)
+        phone, name = getParticipantInfo(participant_data[1])
+
+    if None in (phone, name):
         return 0
 
     count = 0
@@ -100,8 +82,7 @@ def groupIDs(thread):
             userID = participant_data['id']['chat_id']
             if participant_data.get('phone_number'):
                 phone_found = True
-                phoneNumber = participant_data['phone_number']['e164']
-                userName = participant_data['fallback_name']
+                phoneNumber, userName = getParticipantInfo(participant_data)
                 user_ids[userID] = (userName, phoneNumber)
             else:
                 # if this is an mms thread, the owner's phone # will be in "fallback_name" for some reason
@@ -261,6 +242,31 @@ def getMessage(msg):
     return text
 
 
+def getParticipantInfo(participant_data):
+
+    name = participant_data.get("fallback_name")
+
+    if 'phone_number' in participant_data.keys():
+        phone = participant_data['phone_number']['e164']
+
+        if 'i18n_data' in participant_data['phone_number'].keys():
+            is_valid = participant_data['phone_number']['i18n_data']['is_valid']
+            if not is_valid:
+                # likely a short code, skip
+                return None, None
+        else:
+            return None, None
+    elif 'gaia_id' in participant_data['id'].keys() and args.prompt:
+        id = participant_data['id']['gaia_id']
+        phone = input(f"Please provide the phone number (in E.164 format) for {name} (Google user ID {id}): ")
+        if not phone:
+            return None, None
+    else:
+        return None, None
+
+    return phone, name
+
+
 def getTimestamp(msg):
 
     # print(data['conversations'][28]['events'][0]['timestamp'])
@@ -302,5 +308,11 @@ def main():
     tree = ET.ElementTree(root)
     tree.write("test.xml")
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-p", "--prompt",
+    help="Prompt for phone number input (for conversations) when not found",
+    action="store_true")
+args = parser.parse_args()
 
 main()
