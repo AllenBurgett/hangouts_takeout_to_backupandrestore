@@ -261,6 +261,9 @@ def getParticipantInfo(participant_data):
     elif 'gaia_id' in participant_data['id'].keys() and args.prompt:
         id = participant_data['id']['gaia_id']
         
+        if name is None:
+            name = input(f"Please provide a name for Google user ID {id}: ")
+        
         if id == number_lookup['User']:
             return None, None
             
