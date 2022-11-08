@@ -6,6 +6,8 @@ import xml.etree.ElementTree as ET
 import re
 import time
 
+number_lookup = {'User': 0}
+
 
 def current_milli_time(): return int(round(time.time() * 1000))
 
@@ -258,9 +260,24 @@ def getParticipantInfo(participant_data):
             return None, None
     elif 'gaia_id' in participant_data['id'].keys() and args.prompt:
         id = participant_data['id']['gaia_id']
+        
+        if id == number_lookup['User']:
+            return None, None
+            
+        if id in number_lookup.keys():
+            return phone, name
+        
+        if number_lookup['User'] == 0:
+            answer = input(f"Is this entry you? {name} (Google user ID {id}) (answer y/n): ")
+            if answer == 'y':
+                number_lookup['User'] = id
+                return None, None
+        
         phone = input(f"Please provide the phone number (in E.164 format) for {name} (Google user ID {id}): ")
         if not phone:
             return None, None
+            
+        number_lookup[id] = phone
     else:
         return None, None
 
